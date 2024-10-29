@@ -1,4 +1,5 @@
 import React from 'react'
+import TagInput from '../../components/Input/TagInput'
 
 function AddEditNotes() {
   return (
@@ -23,6 +24,7 @@ function AddEditNotes() {
         </div>
         <div className='mt-3'>
             <label className='input-label'>TAGS</label>
+            <TagInput />
         </div>
         <button className='btn-primary font-medium mt-5 p-3' onClick={() => {}}>ADD</button>
     </div>
