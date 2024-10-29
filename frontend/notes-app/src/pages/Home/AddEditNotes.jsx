@@ -2,11 +2,41 @@ import React, { useState } from 'react'
 import TagInput from '../../components/Input/TagInput'
 import { MdClose } from 'react-icons/md';
 
-function AddEditNotes({onClose}) {
+function AddEditNotes({noteData, type, onClose}) {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [tags, setTags] = useState([]);
     
+    const [error, setError] = useState(null);
+
+    // Add note
+    const addNewNote = async () => {
+    }
+
+    // Edit note
+    const  editNote = async () => {
+    }
+
+    const handleAddNote = () => {
+        if (!title) {
+            setError("Please enter the title.");
+            return
+        }
+        if (!content) {
+            setError("Please enter the content.")
+            return
+        }
+
+        if (type === 'edit') {
+            editNote();
+        } else {
+            addNewNote();
+        }
+
+        setError("")
+    }
+
+
 
   return (
     <div className='relative'>
@@ -39,7 +69,9 @@ function AddEditNotes({onClose}) {
             <label className='input-label'>TAGS</label>
             <TagInput tags={tags} setTags={setTags} />
         </div>
-        <button className='btn-primary font-medium mt-5 p-3' onClick={() => {}}>ADD</button>
+
+        {error && (<p className='text-red-500 text-xs pt-4'>{error}</p>)}
+        <button className='btn-primary font-medium mt-5 p-3' onClick={handleAddNote}>ADD</button>
     </div>
   )
 }
