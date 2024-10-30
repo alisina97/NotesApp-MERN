@@ -27,6 +27,46 @@ function Home() {
         onDelete={() => {}}
         onPinNote={() => {}}
         />
+                <NoteCard 
+        title={"Meeting on April 7th"} 
+        date={"3rd April 2024"} 
+        content={"content long test content long test content long test content long test content long test content long test"} 
+        tags="#Meeting"
+        isPinned={false}
+        onEdit={() => {}}
+        onDelete={() => {}}
+        onPinNote={() => {}}
+        />
+                <NoteCard 
+        title={"Meeting on April 7th"} 
+        date={"3rd April 2024"} 
+        content={"content long test content long test content long test content long test content long test content long test"} 
+        tags="#Meeting"
+        isPinned={false}
+        onEdit={() => {}}
+        onDelete={() => {}}
+        onPinNote={() => {}}
+        />
+                <NoteCard 
+        title={"Meeting on April 7th"} 
+        date={"3rd April 2024"} 
+        content={"content long test content long test content long test content long test content long test content long test"} 
+        tags="#Meeting"
+        isPinned={false}
+        onEdit={() => {}}
+        onDelete={() => {}}
+        onPinNote={() => {}}
+        />
+                <NoteCard 
+        title={"Meeting on April 7th"} 
+        date={"3rd April 2024"} 
+        content={"content long test content long test content long test content long test content long test content long test"} 
+        tags="#Meeting"
+        isPinned={false}
+        onEdit={() => {}}
+        onDelete={() => {}}
+        onPinNote={() => {}}
+        />
       </div>
       <button className='w-16 h-16 flex items-center justify-center rounded-2xl bg-primary hover:bg-blue-600 absolute right-10 bottom-10' 
         onClick={() => {
