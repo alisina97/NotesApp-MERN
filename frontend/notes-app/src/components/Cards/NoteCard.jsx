@@ -11,7 +11,7 @@ function NoteCard({title, date, content, tags, isPinned, onEdit, onDelete, onPin
                 <span className='text-xs text-slate-500'>{moment(date).format('Do MMM YYYY')}</span>
             </div>
             {isPinned ?
-            (<MdPushPin className='icon-btn' onClick={onPinNote} />) : (<MdOutlinePushPin className='icon-btn' onClick={onPinNote} />)}
+            (<MdPushPin className='icon-btn text-blue-500' onClick={onPinNote} />) : (<MdOutlinePushPin className='icon-btn' onClick={onPinNote} />)}
         </div>
 
         <p className='text-xs text-slate-600 mt-2'>{content?.slice(0, 60)}</p>

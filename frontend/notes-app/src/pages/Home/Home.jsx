@@ -10,6 +10,7 @@ import moment from 'moment';
 import Toast from '../../components/Toast/Toast';
 import EmptyCard from '../../components/Cards/EmptyCard';
 import AddNotesImg from '../../assets/images/no-note-illustration.png';
+import NoDataImg from '../../assets/images/empty-search-illustration.png';
 
 function Home() {
   const [openAddEditModal, setOpenAddEditModal] = useState({
@@ -114,6 +115,26 @@ function Home() {
     }
   }
 
+  const updateIsPinned = async (noteData) => {
+    const noteId = noteData._id;
+    try {
+        const response = await axiosInstance.put("/update-note-pinned/" + noteId, {
+          isPinned: !noteData.isPinned,
+        })
+        if (response.data && response.data.note) {
+            showToastMessage("Note updated successfully.")
+            getAllNotes();
+        }
+    } catch (error) {
+        console.log(error);
+    }
+  }
+
+  const handleClearSearch = () => {
+    setIsSearch(false);
+    getAllNotes();
+  }
+
   useEffect(() => {
     getAllNotes();
     getUserInfo();
@@ -121,7 +142,7 @@ function Home() {
 
   return (
     <>
-      <Navbar userInfo={userInfo} onSearchNote={onSearchNote} />
+      <Navbar userInfo={userInfo} onSearchNote={onSearchNote} handleClearSearch={handleClearSearch} />
       <div className="container mx-auto">
         {allNotes.length > 0 ? (
           <div className="grid grid-cols-3 gap-4 mt-8">
@@ -129,19 +150,19 @@ function Home() {
               <NoteCard
                 key={item._id}
                 title={item.title}
-                date={moment(item.createdOn).format('Do MMM YYYY')}
+                date={item.createdOn}
                 content={item.content}
                 tags={item.tags}
                 isPinned={item.isPinned}
                 onEdit={() => handleEdit(item)}
                 onDelete={() => deleteNote(item)}
-                onPinNote={() => {}}
+                onPinNote={() => updateIsPinned(item)}
               />
             ))}
           </div>
         ) : (
-          <EmptyCard imgSrc={AddNotesImg} 
-          message={`Start creating your first note! Click the 'Add' button to save your thoughts, ideas and reminders. Let's get started!`} />
+          <EmptyCard imgSrc={isSearch? NoDataImg : AddNotesImg} 
+          message={isSearch? `No notes found matching your search.`: `Start creating your first note! Click the 'Add' button to save your thoughts, ideas and reminders. Let's get started!`} />
         )}
         <button
           className="w-16 h-16 flex items-center justify-center rounded-2xl bg-primary hover:bg-blue-600 absolute right-10 bottom-10"
