@@ -21,6 +21,14 @@ function Home() {
 
   const navigate = useNavigate();
 
+  const handleEdit = (noteDetails) => {
+    setOpenAddEditModal({
+      isShown: true,
+      type: "edit",
+      data: noteDetails,
+    })
+  }
+
   //Get User Info
   const getUserInfo = async() => {
     try {
@@ -52,8 +60,8 @@ function Home() {
   useEffect(() => {
     getAllNotes();
     getUserInfo();
-    return () => {};
   }, []);
+
   return (
     <>
     <Navbar userInfo={userInfo}/>
@@ -68,7 +76,7 @@ function Home() {
             content={item.content} 
             tags={item.tags}
             isPinned={item.isPinned}
-            onEdit={() => {}}
+            onEdit={() => {handleEdit(item)}}
             onDelete={() => {}}
             onPinNote={() => {}}
           />
@@ -97,7 +105,7 @@ function Home() {
       >
       <AddEditNotes
         type={openAddEditModal.type}
-        data={openAddEditModal.data}
+        noteData={openAddEditModal.data}
         onClose={() => {
           setOpenAddEditModal({
             isShown: false,
@@ -105,6 +113,7 @@ function Home() {
             data: null
           })
         }}
+        getAllNotes={getAllNotes}
       />
       </Modal>
     </div>
