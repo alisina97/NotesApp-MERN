@@ -45,7 +45,7 @@ function Home() {
   }
 
   const handleCloseToast = () => {
-    setShowToastMessage({
+    setShowToastMsg({
       isShown: false,
       message: "",
     })
@@ -135,6 +135,7 @@ function Home() {
           })
         }}
         getAllNotes={getAllNotes}
+        showToastMessage={showToastMessage}
       />
       </Modal>
 
