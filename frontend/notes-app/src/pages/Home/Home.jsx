@@ -6,6 +6,7 @@ import AddEditNotes from './AddEditNotes'
 import Modal from 'react-modal'
 import { useNavigate } from 'react-router-dom'
 import axiosInstance from '../../utils/axiosinstance'
+import moment from "moment";
 
 function Home() {
 
@@ -16,11 +17,11 @@ function Home() {
   })
 
   const [userInfo, setUserInfo] = useState(null);
+  const [allNotes, setAllNotes] = useState([]);
 
   const navigate = useNavigate();
 
   //Get User Info
-
   const getUserInfo = async() => {
     try {
       const response = await axiosInstance.get("/get-user");
@@ -35,7 +36,21 @@ function Home() {
     }
   }
 
+  //Get all notes
+  const getAllNotes = async() => {
+    try {
+      const response = await axiosInstance.get("/get-all-notes");
+
+      if (response.data && response.data.notes) {
+        setAllNotes(response.data.notes)
+      }
+    } catch (error) {
+      console.log("An unexpected errror happened, please try again later.")
+    }
+  }
+
   useEffect(() => {
+    getAllNotes();
     getUserInfo();
     return () => {};
   }, []);
@@ -44,56 +59,21 @@ function Home() {
     <Navbar userInfo={userInfo}/>
     <div className='container mx-auto'>
       <div className='grid grid-cols-3 gap-4 mt-8'>
-        <NoteCard 
-        title={"Meeting on April 7th"} 
-        date={"3rd April 2024"} 
-        content={"content long test content long test content long test content long test content long test content long test"} 
-        tags="#Meeting"
-        isPinned={false}
-        onEdit={() => {}}
-        onDelete={() => {}}
-        onPinNote={() => {}}
-        />
-                <NoteCard 
-        title={"Meeting on April 7th"} 
-        date={"3rd April 2024"} 
-        content={"content long test content long test content long test content long test content long test content long test"} 
-        tags="#Meeting"
-        isPinned={false}
-        onEdit={() => {}}
-        onDelete={() => {}}
-        onPinNote={() => {}}
-        />
-                <NoteCard 
-        title={"Meeting on April 7th"} 
-        date={"3rd April 2024"} 
-        content={"content long test content long test content long test content long test content long test content long test"} 
-        tags="#Meeting"
-        isPinned={false}
-        onEdit={() => {}}
-        onDelete={() => {}}
-        onPinNote={() => {}}
-        />
-                <NoteCard 
-        title={"Meeting on April 7th"} 
-        date={"3rd April 2024"} 
-        content={"content long test content long test content long test content long test content long test content long test"} 
-        tags="#Meeting"
-        isPinned={false}
-        onEdit={() => {}}
-        onDelete={() => {}}
-        onPinNote={() => {}}
-        />
-                <NoteCard 
-        title={"Meeting on April 7th"} 
-        date={"3rd April 2024"} 
-        content={"content long test content long test content long test content long test content long test content long test"} 
-        tags="#Meeting"
-        isPinned={false}
-        onEdit={() => {}}
-        onDelete={() => {}}
-        onPinNote={() => {}}
-        />
+      {allNotes.map((item, index) => {
+        return (
+          <NoteCard 
+            key={item._id}
+            title={item.title} 
+            date={item.createdOn} 
+            content={item.content} 
+            tags={item.tags}
+            isPinned={item.isPinned}
+            onEdit={() => {}}
+            onDelete={() => {}}
+            onPinNote={() => {}}
+          />
+        )
+      })}
       </div>
       <button className='w-16 h-16 flex items-center justify-center rounded-2xl bg-primary hover:bg-blue-600 absolute right-10 bottom-10' 
         onClick={() => {
