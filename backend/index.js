@@ -3,6 +3,7 @@ require("dotenv").config();
 const config = require("./config.json");
 const mongoose = require("mongoose");
 const connectionString = process.env.MONGODB_URI;
+const port = process.env.PORT || 4000;
 
 mongoose.connect(connectionString);
 
@@ -315,6 +316,10 @@ app.get("/search-notes/", authenticateToken, async (req, res) => {
             message: "Internal Server Error",
         })
     }
+})
+
+app.listen(port, ()=> {
+    console.log("app is running on port: ${port}");
 })
 
 module.exports = app;
