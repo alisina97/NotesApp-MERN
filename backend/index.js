@@ -20,7 +20,11 @@ const { authenticateToken } = require("./utilities");
 
 app.use(express.json());
 
-app.use(cors({origin: "*",}));
+app.use(cors({
+    origin: 'https://notesapp-5gr7.onrender.com',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true, 
+}));
 
 app.get("/", (req, res) => {
     res.json("Server is running");
