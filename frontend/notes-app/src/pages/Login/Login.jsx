@@ -7,8 +7,8 @@ import axiosInstance from '../../utils/axiosinstance';
 
 function Login() {
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('demo@example.com');
+  const [password, setPassword] = useState('password123');
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
