@@ -21,6 +21,10 @@ app.use(express.json());
 
 app.use(cors({origin: "*",}));
 
+app.get("/", (req, res) => {
+    res.json("Server is running");
+})
+
 app.get("/get-user", authenticateToken, async (req, res) => {
     const { user } = req.user;
 
