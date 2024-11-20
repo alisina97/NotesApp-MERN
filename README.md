@@ -2,6 +2,8 @@
 
 A simple MERN (MongoDB, Express.js, React, Node.js) notes app for managing your notes.
 
+![Project Screenshot](/frontend/notes-app/src/assets/images/Screenshot%202024-11-20%20at%2011-05-43%20Vite%20React.png)
+
 ## Introduction
 
 This MERN Notes App is designed to help you manage and organize your notes efficiently. It uses a modern tech stack to provide a seamless user experience.
@@ -21,21 +23,24 @@ Before you begin, ensure you have met the following requirements:
    ```bash
    git clone https://github.com/alisina97/NotesApp-MERN.git
    ```
+
 2. Navigate to the repository
 
-    ```bash
-    cd NotesApp-MERN
-    ```
+   ```bash
+   cd NotesApp-MERN
+   ```
+
 3. Install server dependencies
-    ```bash
-    cd backend
-    npm i
-    ```
+   ```bash
+   cd backend
+   npm i
+   ```
 4. Install frontend dependencies
-    ```bash
-    cd ../frontend
-    npm i
-    ```
+   ```bash
+   cd ../frontend
+   npm i
+   ```
+
 ## Configuration
 
 ### Backend Setup
@@ -44,6 +49,8 @@ Before you begin, ensure you have met the following requirements:
 
    ```env
    ACCESS_TOKEN_SECRET=your-secret-key
+   ```
+
 2. Replace `your-secret-key` with a secure, random string of your choice.
 
 3. Update the `config.js` file located in the `backend` directory with your MongoDB connection string:
@@ -52,6 +59,8 @@ Before you begin, ensure you have met the following requirements:
    {
        "connectionString": "your link to mongo db"
    }
+   ```
+
 4. Ensure the username, password, and cluster details match your MongoDB instance.
 
 ---
@@ -69,6 +78,8 @@ No additional configuration is needed for the frontend.
    ```bash
    cd backend
    npm start
+   ```
+
 2. The backend server will start on `http://localhost:5000`.
 
 3. Start the frontend server:
@@ -76,6 +87,8 @@ No additional configuration is needed for the frontend.
    ```bash
    cd ../frontend
    npm start
+   ```
+
 4. The frontend application will start on `http://localhost:3000`.
 
 5. Open your browser and navigate to `http://localhost:3000` to use the Notes App.
