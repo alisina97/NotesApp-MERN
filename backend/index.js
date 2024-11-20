@@ -317,6 +317,4 @@ app.get("/search-notes/", authenticateToken, async (req, res) => {
     }
 })
 
-app.listen(8000);
-
 module.exports = app;
