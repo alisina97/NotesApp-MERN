@@ -50,7 +50,7 @@ Before you begin, ensure you have met the following requirements:
 
    ```javascript
    {
-       "connectionString": "mongodb+srv://alisina:Sinaali123.@notes-app.dgscu.mongodb.net/?retryWrites=true&w=majority&appName=notes-app"
+       "connectionString": "your link to mongo db"
    }
 4. Ensure the username, password, and cluster details match your MongoDB instance.
 
