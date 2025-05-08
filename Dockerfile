@@ -1,19 +1,44 @@
+# Stage 1: Build React frontend
+FROM node:20-slim as frontend-builder
+
+WORKDIR /app/frontend
+
+COPY frontend/package*.json ./
+
+RUN npm install
+
+COPY frontend/ ./
+
+RUN npm run build
+
+
+# Stage 2: Build Node.js backend
+FROM node:20-slim as backend-builder
+
+WORKDIR /app/backend
+
+COPY backend/package*.json ./
+
+RUN npm install
+
+COPY backend/ ./
+
+# Stage 3: Production image
 FROM node:20-slim
 
-# Create app directory
 WORKDIR /app
 
-# Copy backend package files
-COPY backend/package*.json ./backend/
+# Copy backend from builder
+COPY --from=backend-builder /app/backend /app/backend
 
-# Install backend dependencies
-RUN cd backend && npm install
+# Copy frontend build into backend's public directory (adjust if your backend serves static files differently)
+COPY --from=frontend-builder /app/frontend/build /app/backend/public
 
-# Copy backend source code
-COPY backend ./backend
+# Install production dependencies only (if needed, otherwise skip this step)
+# RUN cd backend && npm install --omit=dev
 
-# Expose port (change if your backend uses a different port)
+# Expose the port your backend listens on
 EXPOSE 5000
 
-# Start the backend
+# Start the backend server
 CMD ["node", "backend/server.js"]
