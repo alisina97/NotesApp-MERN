@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/yourusername/your-repo.git'
+                git 'https://github.com/alisina97/NotesApp-MERN'
             }
         }
         stage('Build Docker Image') {
