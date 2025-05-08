@@ -1,11 +1,6 @@
 pipeline {
     agent any
     stages {
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/alisina97/NotesApp-MERN.git'
-            }
-        }
         stage('Install') {
             steps {
                 dir('frontend/notes-app') {
