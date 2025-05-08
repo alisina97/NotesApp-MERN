@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:20'
+            args '-u root'
+        }
+    }
     stages {
         stage('Install') {
             steps {
@@ -11,7 +16,7 @@ pipeline {
         stage('Test') {
             steps {
                 dir('frontend/notes-app') {
-                    sh 'npm test || true'   // skip error if no tests
+                    sh 'npm test || true'
                 }
             }
         }
