@@ -1,4 +1,5 @@
 pipeline {
+    agent any
     stages {
         stage('Install') {
             steps {
@@ -10,7 +11,7 @@ pipeline {
         stage('Test') {
             steps {
                 dir('frontend/notes-app') {
-                    sh 'npm test || true'
+                    sh 'npm test || true'   // skip error if no tests
                 }
             }
         }
