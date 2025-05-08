@@ -22,16 +22,21 @@ pipeline {
                 }
             }
         }
-        stage('Deploy to S3') {
+        stage('Build Docker Image') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'aws-s3-creds', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                    dir('frontend/notes-app/dist') {
-                        sh '''
-                        aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-                        aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-                        aws s3 sync . s3://notes-app-frontend-build --delete
-                        '''
-                    }
+                script {
+                    dockerImage = docker.build("alisina97/notes-app:latest")
+                }
+            }
+        }
+        
+        stage('Push to Docker Hub') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    sh '''
+                    echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                    docker push alisina97/notes-app:latest
+                    '''
                 }
             }
         }
