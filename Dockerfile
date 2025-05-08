@@ -1,34 +1,19 @@
-FROM node:20-slim as frontend-builder
-
-WORKDIR /app/frontend
-
-COPY frontend/package*.json ./
-
-RUN npm install
-
-COPY frontend/ ./
-
-RUN npm run build
-
-
-FROM node:20-slim as backend-builder
-
-WORKDIR /app/backend
-
-COPY backend/package*.json ./
-
-RUN npm install
-
-COPY backend/ ./
-
-FROM node:20-slim
+# Step 1: Build the React app
+FROM node:20 as builder
 
 WORKDIR /app
 
-COPY --from=backend-builder /app/backend /app/backend
+COPY . .
 
-COPY --from=frontend-builder /app/frontend/build /app/backend/public
+RUN npm install
+RUN npm run build
 
-EXPOSE 5000
+# Step 2: Serve the built app with nginx
+FROM nginx:stable-alpine
 
-CMD ["node", "backend/server.js"]
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Expose port 80
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
